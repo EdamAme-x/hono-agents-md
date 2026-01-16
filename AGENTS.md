@@ -1,27 +1,27 @@
-# Hono エージェント向けドキュメント
+# Hono Documentation for Agents
 
-**バージョン:** 4.11.4
+**Version:** 4.11.4
 
-## 概要
+## Overview
 
-Honoは、Web標準API上で動作するように設計された、高速で軽量なWebフレームワークです。Cloudflare Workers、Fastly Compute、Deno、Bun、Vercel、AWS Lambdaなど、あらゆるJavaScriptランタイムで動作することを目指しています。
+Hono is a fast, lightweight web framework designed to run on any JavaScript runtime. It aims to work on Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, AWS Lambda, and more.
 
-## コア機能
+## Core Features
 
-- **超高速**: ルーターにRegExpTreeを使用しており、非常に高速です。
-- **軽量**: `hono/tiny`プリセットは非常に小さく、依存関係もありません。
-- **マルチランタイム**: Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Netlify, AWS Lambda, Lambda@Edge, Node.jsで動作します。
-- **ミドルウェア**: 豊富な組み込みミドルウェアとカスタムミドルウェアを提供します。
-- **開発者体験**: TypeScriptをサポートし、快適な開発体験を提供します。
+- **Ultra Fast**: Uses a RegExpTree-based router, making it extremely fast.
+- **Lightweight**: The `hono/tiny` preset is very small and has no dependencies.
+- **Multi-runtime**: Works on Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Netlify, AWS Lambda, Lambda@Edge, and Node.js.
+- **Middleware**: Provides a rich set of built-in and custom middleware.
+- **Developer Experience**: Supports TypeScript for a comfortable development experience.
 
 ---
 
-## アダプター (Adapters)
+## Adapters
 
-Honoは、さまざまなプラットフォームでアプリケーションを簡単に実行するためのアダプターを提供します。
+Hono provides adapters to easily run your application on various platforms.
 
 ### `aws-lambda`
-AWS LambdaおよびAPI Gateway用のアダプター。
+Adapter for AWS Lambda and API Gateway.
 
 ```typescript
 import { Hono } from 'hono'
@@ -34,7 +34,7 @@ export const handler = handle(app)
 ```
 
 ### `bun`
-BunネイティブのHTTPサーバー用アダプター。
+Adapter for Bun's native HTTP server.
 
 ```typescript
 import { Hono } from 'hono'
@@ -49,7 +49,7 @@ export default {
 ```
 
 ### `cloudflare-pages`
-Cloudflare Pages Functions用アダプター。
+Adapter for Cloudflare Pages Functions.
 
 ```typescript
 // functions/[[path]].ts
@@ -63,7 +63,7 @@ export const onRequest = handle(app)
 ```
 
 ### `cloudflare-workers`
-Cloudflare Workers用アダプター。
+Adapter for Cloudflare Workers.
 
 ```typescript
 import { Hono } from 'hono'
@@ -75,7 +75,7 @@ export default app
 ```
 
 ### `deno`
-DenoおよびDeno Deploy用アダプター。
+Adapter for Deno and Deno Deploy.
 
 ```typescript
 import { Hono } from 'hono'
@@ -88,7 +88,7 @@ serve(app)
 ```
 
 ### `lambda-edge`
-AWS Lambda@Edge用アダプター。
+Adapter for AWS Lambda@Edge.
 
 ```typescript
 import { Hono } from 'hono'
@@ -101,7 +101,7 @@ export const handler = handle(app)
 ```
 
 ### `netlify`
-Netlify Functions用アダプター。
+Adapter for Netlify Functions.
 
 ```typescript
 // netlify/functions/api.ts
@@ -115,7 +115,7 @@ export const handler = handle(app)
 ```
 
 ### `node.js`
-`hono/node-server` を使用してNode.js環境でサーバーを起動します。
+Starts a server in a Node.js environment using `hono/node-server`.
 
 ```typescript
 import { Hono } from 'hono'
@@ -131,7 +131,7 @@ serve({
 ```
 
 ### `vercel`
-Vercel Serverless Functions用アダプター。
+Adapter for Vercel Serverless Functions.
 
 ```typescript
 // api/index.ts
@@ -150,12 +150,12 @@ export default handle(app)
 
 ---
 
-## ミドルウェア (Middleware)
+## Middleware
 
-Honoは、リクエストとレスポンスを処理するための再利用可能なミドルウェアを多数提供しています。
+Hono provides a number of reusable middleware to handle requests and responses.
 
 ### `basicAuth`
-基本認証を提供します。
+Provides Basic Authentication.
 
 ```typescript
 import { Hono } from 'hono'
@@ -172,7 +172,7 @@ app.get('/admin/dashboard', (c) => c.text('Welcome, admin!'))
 ```
 
 ### `bearerAuth`
-Bearerトークン認証を提供します。
+Provides Bearer Token Authentication.
 
 ```typescript
 import { Hono } from 'hono'
@@ -188,7 +188,7 @@ app.get('/api/users', (c) => c.json([{ id: 1, name: 'John Doe' }]))
 ```
 
 ### `bodyLimit`
-リクエストボディのサイズを制限します。
+Limits the size of the request body.
 
 ```typescript
 import { Hono } from 'hono'
@@ -205,7 +205,7 @@ app.post('/upload', (c) => c.text('File uploaded!'))
 ```
 
 ### `cache`
-Cache APIを使用してレスポンスをキャッシュします。
+Caches responses using the Cache API.
 
 ```typescript
 import { Hono } from 'hono'
@@ -228,7 +228,7 @@ app.get('/posts/:id', (c) => {
 ```
 
 ### `compress`
-レスポンスボディを圧縮します (gzip, deflate, brotli)。
+Compresses the response body (gzip, deflate, brotli).
 
 ```typescript
 import { Hono } from 'hono'
@@ -242,7 +242,7 @@ app.get('/', (c) => c.text('This content will be compressed.'))
 ```
 
 ### `cors`
-CORS (Cross-Origin Resource Sharing) ヘッダーを管理します。
+Manages CORS (Cross-Origin Resource Sharing) headers.
 
 ```typescript
 import { Hono } from 'hono'
@@ -259,7 +259,7 @@ app.get('/api/data', (c) => c.json({ message: 'CORS enabled!' }))
 ```
 
 ### `csrf`
-CSRF (Cross-Site Request Forgery) 対策を提供します。
+Provides protection against CSRF (Cross-Site Request Forgery) attacks.
 
 ```typescript
 import { Hono } from 'hono'
@@ -274,7 +274,7 @@ app.post('/', (c) => c.text('CSRF token is valid!'))
 ```
 
 ### `etag`
-ETagヘッダーを生成し、`304 Not Modified`レスポンスを返します。
+Generates an ETag header and returns a `304 Not Modified` response.
 
 ```typescript
 import { Hono } from 'hono'
@@ -288,7 +288,7 @@ app.get('/data', (c) => c.text('This response has an ETag.'))
 ```
 
 ### `ipRestriction`
-IPアドレスに基づいてアクセスを制限します。
+Restricts access based on IP address.
 
 ```typescript
 import { Hono } from 'hono'
@@ -304,7 +304,7 @@ app.get('/admin/secret', (c) => c.text('You are allowed!'))
 ```
 
 ### `jsxRenderer`
-JSXコンポーネントをサーバーサイドでレンダリングします。
+Renders JSX components on the server side.
 
 ```typescript
 import { Hono } from 'hono'
@@ -327,7 +327,7 @@ app.get('/', (c) => {
 ```
 
 ### `jwt`
-JWT (JSON Web Token) による認証を行います。
+Performs authentication with JWT (JSON Web Token).
 
 ```typescript
 import { Hono } from 'hono'
@@ -345,7 +345,7 @@ app.get('/auth/profile', (c) => {
 ```
 
 ### `logger`
-リクエストとレスポンスの情報をログに出力します。
+Logs request and response information.
 
 ```typescript
 import { Hono } from 'hono'
@@ -359,7 +359,7 @@ app.get('/', (c) => c.text('Logged!'))
 ```
 
 ### `prettyJson`
-JSONレスポンスを整形して出力します。
+Formats JSON responses for readability.
 
 ```typescript
 import { Hono } from 'hono'
@@ -373,7 +373,7 @@ app.get('/user', (c) => c.json({ id: 1, name: 'John Doe', active: true }))
 ```
 
 ### `secureHeaders`
-セキュリティ関連のHTTPヘッダーを自動で追加します。
+Automatically adds security-related HTTP headers.
 
 ```typescript
 import { Hono } from 'hono'
@@ -387,7 +387,7 @@ app.get('/', (c) => c.text('Secure headers are set!'))
 ```
 
 ### `serveStatic`
-静的ファイルを配信します。
+Serves static files.
 
 ```typescript
 import { Hono } from 'hono'
@@ -395,16 +395,16 @@ import { serveStatic } from 'hono/serve-static'
 
 const app = new Hono()
 
-// ルートディレクトリを `assets` に設定
+// Set the root directory to `assets`
 app.use('/static/*', serveStatic({ root: './assets' }))
-// 例: /static/style.css -> ./assets/style.css
+// e.g., /static/style.css -> ./assets/style.css
 
-// ファイルパスを指定
+// Specify a file path
 app.get('/favicon.ico', serveStatic({ path: './assets/favicon.ico' }))
 ```
 
 ### `timing`
-`Server-Timing`ヘッダーで処理時間を計測します。
+Measures processing time with the `Server-Timing` header.
 
 ```typescript
 import { Hono } from 'hono'
@@ -421,7 +421,7 @@ app.get('/', async (c) => {
 ```
 
 ### `trailingSlash`
-URL末尾のスラッシュを統一します。
+Unifies the trailing slash of a URL.
 
 ```typescript
 import { Hono } from 'hono'
@@ -429,22 +429,22 @@ import { trailingSlash } from 'hono/trailing-slash'
 
 const app = new Hono()
 
-// URLの末尾にスラッシュがなければ追加する
+// Add a trailing slash if it's missing
 app.use('*', trailingSlash({
   action: 'add'
 }))
 
-app.get('/path/', (c) => c.text('Path with slash')) // /path でもアクセス可能
+app.get('/path/', (c) => c.text('Path with slash')) // Also accessible via /path
 ```
 
 ---
 
-## ヘルパー (Helpers)
+## Helpers
 
-開発を補助するための便利なヘルパー関数群です。
+A collection of useful helper functions to aid development.
 
 ### `cookie`
-クッキーの取得と設定を簡単に行います。
+Easily get and set cookies.
 
 ```typescript
 import { Hono } from 'hono'
@@ -469,7 +469,7 @@ app.get('/get', (c) => {
 ```
 
 ### `html`
-HTMLエスケープやテンプレートリテラルを提供します。
+Provides HTML escaping and template literals.
 
 ```typescript
 import { Hono } from 'hono'
@@ -487,7 +487,7 @@ app.get('/', (c) => {
 ```
 
 ### `streaming`
-ストリーミングAPI (SSE, ReadableStream) の実装を支援します。
+Assists in implementing streaming APIs (SSE, ReadableStream).
 
 ```typescript
 import { Hono } from 'hono'
@@ -511,7 +511,7 @@ app.get('/sse', (c) => {
 ```
 
 ### `testing`
-アプリケーションのテストを容易にします。
+Makes it easy to test the application.
 
 ```typescript
 import { hc } from 'hono/testing'
